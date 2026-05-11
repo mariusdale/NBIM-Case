@@ -1,6 +1,6 @@
-# NBIM Daily News Digest POC
+# NBIM Daily News Digest
 
-Small Streamlit proof of concept for a daily NBIM communications digest. It fetches metadata-only news inputs, applies deterministic NBIM relevance rules, uses Anthropic models for relevance/summarization/action review when configured, and stores decisions in SQLite.
+Proof of concept for a daily NBIM communications digest. It fetches metadata-only news inputs, applies deterministic NBIM relevance rules, uses Anthropic models for relevance/summarization/action review when configured, and stores decisions in SQLite.
 
 ## Quick Start
 
