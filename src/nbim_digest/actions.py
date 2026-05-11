@@ -1,3 +1,4 @@
+import re
 from dataclasses import dataclass
 from enum import Enum
 
@@ -77,8 +78,9 @@ def get_action(code: ActionCode | str) -> ActionDefinition:
 def clamp_action(code: str | None) -> ActionCode:
     if not code:
         return ActionCode.NO_ACTION
+    normalized = re.sub(r"^\d+_", "", str(code).strip()).upper()
     try:
-        return ActionCode(code)
+        return ActionCode(normalized)
     except ValueError:
         return ActionCode.NO_ACTION
 

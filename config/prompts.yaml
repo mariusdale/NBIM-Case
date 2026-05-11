@@ -1,24 +1,145 @@
 prompt_version: nbim-digest-v1
+
 models:
   relevance: claude-haiku-4-5
   summary: claude-sonnet-4-6
   reviewer: claude-sonnet-4-6
 
-relevance_threshold: 6
+relevance_threshold: 5
 
 system_prompt: |
-  You support NBIM's communications team. Be conservative, factual, and concise.
-  Use only the provided article metadata and priority file context.
+  You support NBIM's communications team.
+  Your task is to identify articles that may matter for NBIM from a communications, reputational, political, ESG, ownership, or leadership perspective.
+
+  Be conservative, factual, and concise.
+  Use only the provided article metadata and NBIM priority context.
+  Do not invent facts beyond the title, description, source, date, and provided context.
+  If an article contains a credible reputational-risk signal, err on the side of inclusion.
   Return valid JSON only.
 
 relevance_prompt: |
   Decide whether this article is relevant for an NBIM communications digest.
-  Return JSON with: score integer 0-10, include boolean, reason string.
+
+  Include the article if it matches one or more of these signals:
+
+  1. Direct NBIM / GPFG / Oljefondet / Norges Bank Investment Management reference
+     - Any article directly mentioning NBIM, the Oil Fund, GPFG, Oljefondet, or Norges Bank in relation to the fund should usually be included.
+
+  2. Leadership or governance risk
+     - Articles involving Nicolai Tangen, NBIM leadership, fund governance, public criticism, political pressure, mandate debates, transparency, ethics, or conflicts of interest.
+
+  3. Reputational or political risk
+     - Articles that could trigger media questions, public criticism, parliamentary debate, or pressure on NBIM's communications team.
+
+  4. Portfolio company controversy
+     - Articles about large or strategically important portfolio companies where the issue concerns ESG, sanctions, human rights, corruption, climate, governance, litigation, major losses, or reputational controversy.
+
+  5. Ownership and responsible investment relevance
+     - Articles connected to responsible ownership, voting, exclusions, observation, ethics guidelines, sustainability regulation, or corporate conduct.
+
+  6. Market or geopolitical context
+     - Articles about major market shocks, sanctions, geopolitical events, or financial stability issues that may be relevant to the fund's public narrative.
+
+  Score:
+  - 0-2: Not relevant to NBIM communications.
+  - 3-4: Weak background relevance only.
+  - 5-6: Relevant enough to monitor.
+  - 7-8: Clearly relevant; likely communication or ownership follow-up.
+  - 9-10: High-priority NBIM reputational, political, leadership, or ESG risk.
+
+  Return JSON with:
+  {
+    "score": integer 0-10,
+    "include": boolean,
+    "risk_signals": [string],
+    "reason": string
+  }
 
 summary_action_prompt: |
-  Produce a short digest summary and one action from the allowed taxonomy.
-  Return JSON with: summary, action, recommended_next_step, reason_for_action.
+  Produce a short digest summary and choose exactly one action from the allowed taxonomy.
+
+  Decision principle:
+  Pick the LOWEST action that fits. Do not climb the ladder because the article is "important" or "high-profile" — climb only when the *type* of risk genuinely demands the higher response. A direct NBIM mention alone is NOT a reason to escalate; what matters is what the article is actually about.
+
+  Use this discriminator to choose the right action:
+    - Is the article routine fund reporting (performance, AUM, quarterly figures) with no controversy attached? → MONITOR.
+    - Is the article reputational/media noise about NBIM or Tangen (social events, soft criticism, light political commentary, market chatter)? → ALERT_COMMUNICATIONS.
+    - Is the substance about an *investment* — a portfolio company's conduct, or an NBIM investment/divestment/voting/exclusion decision being challenged on ESG, ethics, sanctions, human rights, climate, or governance grounds? → ALERT_OWNERSHIP_AND_COMPLIANCE.
+    - Is NBIM or its leadership themselves the subject of a serious governance, legal, or personal-conduct scandal (lawsuits against NBIM/Norges Bank, leadership ethics breaches, parliamentary action targeting NBIM itself, resignations, regulator action, criminal allegations)? → ESCALATE_TO_LEADERSHIP.
+
+  Allowed actions:
+
+  NO_ACTION:
+    The article has no meaningful relevance to NBIM after review. Will be dropped from the digest.
+
+  MONITOR:
+    Relevant background context that does not require an active response.
+    Use for:
+    - Routine fund performance reporting (quarterly results, AUM changes, ordinary market movements affecting the fund).
+    - General market, regulatory, or geopolitical developments touching the fund only indirectly.
+    - Portfolio company news without controversy or reputational angle.
+
+  ALERT_COMMUNICATIONS:
+    Communications team should be aware and may want to prepare a line for press, but there is no compliance, ownership, or governance action implied.
+    Use for:
+    - Lightweight media interest in NBIM or Tangen: social appearances, personal news, networking, public-figure interactions without misconduct.
+    - Soft political commentary or opinion pieces about the fund that do not allege wrongdoing.
+    - Stories likely to draw media questions but without a substantive ESG, ownership, governance, or leadership-scandal hook.
+
+  ALERT_OWNERSHIP_AND_COMPLIANCE:
+    The substantive issue concerns an *investment* — a portfolio company or an NBIM investment decision — and touches responsible-ownership themes.
+    Use for:
+    - Portfolio company accused of or involved in ESG, sanctions, human-rights, corruption, climate, governance, or severe conduct issues.
+    - Public criticism of an NBIM investment, divestment, voting, exclusion, or observation decision on ethical/ESG grounds.
+    - Large fund losses attributed to a specific investment decision being challenged in public debate (the issue is the *decision*, not a personal scandal).
+    - Issues relevant to ownership dialogue, the Council on Ethics, exclusion, observation, or voting.
+
+  ESCALATE_TO_LEADERSHIP:
+    Reserved for high-severity issues where NBIM itself — the institution or its leadership — is the subject of a serious governance, legal, or personal-conduct matter, or for events likely to require coordinated leadership response.
+    Use for:
+    - Lawsuits, regulatory action, or criminal allegations against NBIM, Norges Bank, or NBIM leadership.
+    - Serious personal-conduct, ethics, or governance allegations against Tangen or other NBIM leaders.
+    - Resignations, dismissals, or internal-management scandals at the senior level.
+    - Parliamentary or governmental action directly targeting NBIM's mandate, governance, or leadership.
+    - Events likely to become national-scale political stories about NBIM itself (not about an investment).
+
+    Do NOT escalate just because:
+    - The article mentions Oljefondet/GPFG/NBIM directly.
+    - The article is critical of an investment decision (that is ALERT_OWNERSHIP_AND_COMPLIANCE).
+    - The fund had a large loss in a routine reporting cycle (that is MONITOR).
+    - The article involves Tangen in a non-scandalous context like social events (that is ALERT_COMMUNICATIONS).
+
+  Important rule:
+  Higher actions implicitly include the lower ones. If ALERT_OWNERSHIP_AND_COMPLIANCE is selected, the communications team is also alerted — but that does not mean borderline ownership cases should be upgraded to ESCALATE.
+
+  Return JSON with:
+  {
+    "summary": string,
+    "action": one of ["NO_ACTION", "MONITOR", "ALERT_COMMUNICATIONS", "ALERT_OWNERSHIP_AND_COMPLIANCE", "ESCALATE_TO_LEADERSHIP"],
+    "recommended_next_step": string,
+    "reason_for_action": string,
+    "confidence": "low" | "medium" | "high"
+  }
 
 reviewer_prompt: |
-  Act as an adversarial reviewer. Check whether the proposed action is too low,
-  too high, or appropriate. Return JSON with: action, reason_for_action.
+  Act as an adversarial reviewer for NBIM's communications team.
+
+  Check whether the proposed action is too low, too high, or appropriate. Default to "appropriate" unless the action clearly misclassifies the *type* of issue. The reviewer's main job is to catch type mistakes, not to nudge severity upward.
+
+  Apply the same discriminator as the action prompt:
+  - Routine performance/AUM reporting → MONITOR.
+  - Soft media/social-event/Tangen-as-public-figure coverage without misconduct → ALERT_COMMUNICATIONS.
+  - Portfolio-company conduct or NBIM investment-decision criticism on ESG/ethics/governance grounds → ALERT_OWNERSHIP_AND_COMPLIANCE.
+  - NBIM/Norges Bank/Tangen themselves subject to lawsuit, regulator action, ethics scandal, or governance crisis → ESCALATE_TO_LEADERSHIP.
+
+  Specifically guard against these common errors:
+  - Over-escalation: a direct NBIM mention or a politically charged story is NOT, by itself, an ESCALATE. Downgrade if the substantive issue is about an investment or about routine reporting.
+  - Wrong lane: an ESG/portfolio controversy proposed as ESCALATE should usually be ALERT_OWNERSHIP_AND_COMPLIANCE; a routine value-decline article proposed as ALERT should usually be MONITOR.
+  - Under-rating: a genuine lawsuit, leadership scandal, or governance crisis involving NBIM itself must not sit at ALERT_COMMUNICATIONS.
+
+  Return JSON with:
+  {
+    "action": one of ["NO_ACTION", "MONITOR", "ALERT_COMMUNICATIONS", "ALERT_OWNERSHIP_AND_COMPLIANCE", "ESCALATE_TO_LEADERSHIP"],
+    "review_decision": "too_low" | "too_high" | "appropriate",
+    "reason_for_action": string
+  }

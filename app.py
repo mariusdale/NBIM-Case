@@ -76,6 +76,29 @@ st.markdown(
       background-color: #005eb8 !important;
       border-color: #005eb8 !important;
     }
+    [data-testid="stMultiSelect"] [data-baseweb="tag"] {
+      background-color: #005eb8 !important;
+      border-color: #005eb8 !important;
+      color: #ffffff !important;
+    }
+    [data-testid="stMultiSelect"] [data-baseweb="tag"] span,
+    [data-testid="stMultiSelect"] [data-baseweb="tag"] svg {
+      color: #ffffff !important;
+      fill: #ffffff !important;
+    }
+    [data-testid="stMultiSelect"] div[data-baseweb="select"]:focus-within,
+    [data-testid="stDateInput"] div[data-baseweb="input"]:focus-within {
+      border-color: #005eb8 !important;
+      box-shadow: 0 0 0 1px #005eb8 inset !important;
+    }
+    div[data-baseweb="calendar"] [aria-selected="true"] {
+      background-color: #005eb8 !important;
+      color: #ffffff !important;
+    }
+    div[data-baseweb="calendar"] [aria-selected="true"]:hover {
+      background-color: #004f9e !important;
+      color: #ffffff !important;
+    }
     div[data-testid="stExpander"] details summary {
       color: #005eb8 !important;
       font-weight: 650;
@@ -89,12 +112,6 @@ st.markdown(
     .app-kicker { color: #5f6368; font-size: 0.95rem; margin-top: -0.4rem; }
     h1, h2, h3 { letter-spacing: 0; }
     .muted { color: #5f6368; font-size: 0.92rem; }
-    .metric-row div[data-testid="stMetric"] {
-      background: #f8fafc;
-      border: 1px solid #e5e7eb;
-      border-radius: 8px;
-      padding: 0.7rem 0.8rem;
-    }
     a { text-decoration: none; }
     </style>
     """,
@@ -183,6 +200,16 @@ def render_sidebar() -> dict:
 
     button_label = "Run demo" if mode == "demo" else "Run live"
     controls["run_clicked"] = st.sidebar.button(button_label, type="primary", use_container_width=True)
+
+    last_result = st.session_state.get("last_result")
+    if last_result is not None:
+        cost = last_result.cost
+        api_calls = cost.relevance_articles + cost.summary_articles + cost.reviewer_articles
+        st.sidebar.markdown("<div class='sidebar-rule'></div>", unsafe_allow_html=True)
+        st.sidebar.caption(
+            f"Last run · ${cost.estimated_cost_usd:.2f} · {api_calls} API call{'s' if api_calls != 1 else ''}"
+        )
+
     return controls
 
 
@@ -262,17 +289,6 @@ def render_digest_item(item, *, run_id: int, idx: int, feedback_enabled: bool) -
 
 
 def render_digest_result(result, *, feedback_enabled: bool = True) -> None:
-    st.success(result.status_message)
-
-    cost = result.cost
-    st.markdown('<div class="metric-row">', unsafe_allow_html=True)
-    c1, c2, c3, c4 = st.columns(4)
-    c1.metric("Estimated cost this run", f"${cost.estimated_cost_usd:.2f}")
-    c2.metric("Cheap relevance model", cost.relevance_articles)
-    c3.metric("Strong summary model", cost.summary_articles)
-    c4.metric("Reviewer pass", cost.reviewer_articles)
-    st.markdown("</div>", unsafe_allow_html=True)
-
     if result.dropped_count:
         st.caption(f"{result.dropped_count} article(s) were dropped but kept in the audit trail.")
     if result.mode == "live" and result.debug:
@@ -343,7 +359,7 @@ def digest_page(controls: dict) -> None:
             if final_result is not None:
                 st.session_state["last_result"] = final_result
                 progress.empty()
-                status_box.success("Digest run complete.")
+                status_box.empty()
                 partial_box.empty()
         except Exception as exc:
             st.error(f"Digest run failed: {exc}")
