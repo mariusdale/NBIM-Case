@@ -4,6 +4,8 @@ Proof of concept for a daily NBIM communications digest. It fetches metadata-onl
 
 ## Quick Start
 
+Create a local environment and install the app:
+
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
@@ -14,11 +16,19 @@ streamlit run app.py
 
 Then choose **Demo mode** and click **Run demo digest**. Demo mode works without API keys when cached outputs are enabled.
 
-For live monitoring with Anthropic analysis, copy `.env.example` to `.env` and add:
+For live monitoring with Anthropic analysis, create a local `.env` file and add your API key:
+
+```bash
+cp .env.example .env
+```
+
+Then edit `.env`:
 
 ```text
-ANTHROPIC_API_KEY=...
+ANTHROPIC_API_KEY=your_anthropic_api_key
 ```
+
+After the key is set, run `streamlit run app.py`, choose **Live mode**, and click **Run live**.
 
 ## What The POC Demonstrates
 
