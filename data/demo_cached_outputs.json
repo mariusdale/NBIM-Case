@@ -1,0 +1,65 @@
+{
+  "nettavisen-stoltenberg-2026": {
+    "llm_relevance_score": 8,
+    "initial_action": "ALERT_COMMUNICATIONS",
+    "reviewer_action": "ALERT_OWNERSHIP_AND_COMPLIANCE",
+    "final_action": "ALERT_OWNERSHIP_AND_COMPLIANCE",
+    "summary": "Nettavisen frames an Oil Fund loss around a named political decision, making it likely to trigger questions about governance, mandate, and accountability.",
+    "reason_for_action": "Direct Oil Fund mention combined with governance framing should be reviewed with ownership/compliance before any external response.",
+    "recommended_next_step": "Forward to Ownership & Compliance before considering any external response."
+  },
+  "e24-israel-cameras-2025": {
+    "llm_relevance_score": 9,
+    "initial_action": "ALERT_OWNERSHIP_AND_COMPLIANCE",
+    "reviewer_action": "ALERT_OWNERSHIP_AND_COMPLIANCE",
+    "final_action": "ALERT_OWNERSHIP_AND_COMPLIANCE",
+    "summary": "E24 links an Oil Fund portfolio company to equipment supplied to the Israeli military, creating a sanctions, human rights, and ownership-risk angle.",
+    "reason_for_action": "Portfolio company controversy involving conflict and military use requires ownership and compliance review.",
+    "recommended_next_step": "Forward to Ownership & Compliance before considering any external response."
+  },
+  "e24-q1-value-fall-2026": {
+    "llm_relevance_score": 7,
+    "initial_action": "MONITOR",
+    "reviewer_action": "MONITOR",
+    "final_action": "MONITOR",
+    "summary": "E24 reports a large first-quarter value decline for the Oil Fund, a relevant background item but not itself a controversy.",
+    "reason_for_action": "Market-performance coverage is relevant for situational awareness but does not require immediate communications escalation.",
+    "recommended_next_step": "Monitor only. No immediate communications action required."
+  },
+  "nrk-ethics-decisions-2026": {
+    "llm_relevance_score": 9,
+    "initial_action": "ALERT_COMMUNICATIONS",
+    "reviewer_action": "ALERT_OWNERSHIP_AND_COMPLIANCE",
+    "final_action": "ALERT_OWNERSHIP_AND_COMPLIANCE",
+    "summary": "NRK highlights public criticism of Oil Fund decisions, with an ethics and accountability angle that could drive stakeholder questions.",
+    "reason_for_action": "Ethics-related criticism of the fund should be checked with ownership and compliance before response options are considered.",
+    "recommended_next_step": "Forward to Ownership & Compliance before considering any external response."
+  },
+  "dn-litigation-2023": {
+    "llm_relevance_score": 10,
+    "initial_action": "ESCALATE_TO_LEADERSHIP",
+    "reviewer_action": "ESCALATE_TO_LEADERSHIP",
+    "final_action": "ESCALATE_TO_LEADERSHIP",
+    "summary": "DN reports litigation involving a former senior Oil Fund leader and Norges Bank, creating legal and leadership-level reputational risk.",
+    "reason_for_action": "Litigation linked to leadership and Norges Bank should be escalated for coordinated handling.",
+    "recommended_next_step": "Escalate to leadership with a one-paragraph briefing and suggested response options."
+  },
+  "vg-tangen-concert-2020": {
+    "llm_relevance_score": 10,
+    "initial_action": "ESCALATE_TO_LEADERSHIP",
+    "reviewer_action": "ESCALATE_TO_LEADERSHIP",
+    "final_action": "ESCALATE_TO_LEADERSHIP",
+    "summary": "VG covers a high-profile reputational issue involving Nicolai Tangen and Norwegian public figures before his NBIM role.",
+    "reason_for_action": "A direct leadership-related reputational issue should be escalated because it may affect trust in NBIM leadership.",
+    "recommended_next_step": "Escalate to leadership with a one-paragraph briefing and suggested response options."
+  },
+  "e24-musk-tangen-2024": {
+    "llm_relevance_score": 8,
+    "initial_action": "ALERT_COMMUNICATIONS",
+    "reviewer_action": "ESCALATE_TO_LEADERSHIP",
+    "final_action": "ESCALATE_TO_LEADERSHIP",
+    "summary": "E24 reports a visible interaction between Elon Musk and Nicolai Tangen, creating a leadership and stakeholder-relations angle.",
+    "reason_for_action": "High-profile leadership visibility involving a major portfolio-company figure warrants leadership awareness.",
+    "recommended_next_step": "Escalate to leadership with a one-paragraph briefing and suggested response options."
+  }
+}

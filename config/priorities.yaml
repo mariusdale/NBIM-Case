@@ -1,0 +1,42 @@
+organization: Norges Bank Investment Management
+purpose: Daily communications digest for monitoring NBIM-relevant public signals.
+
+priority_areas:
+  - name: Equity markets
+    description: Market moves or macroeconomic signals that can affect public questions about the fund.
+    examples:
+      - equity markets
+      - interest rates
+      - inflation
+      - kronekurs
+
+  - name: Sustainability regulation
+    description: Climate, ESG, reporting, and sustainability regulation affecting holdings or expectations.
+    examples:
+      - sustainability
+      - climate risk
+      - emissions
+      - responsible investment
+
+  - name: Geopolitics
+    description: Sanctions, conflict, trade restrictions, and geopolitical controversy linked to holdings.
+    examples:
+      - sanctions
+      - Russia
+      - Ukraine
+      - Israel
+      - Gaza
+
+  - name: Portfolio companies
+    description: Portfolio company controversies where ownership, ethics, or compliance context is needed.
+    examples:
+      - human rights
+      - weapons
+      - corruption
+      - executive pay
+
+key_messages:
+  - NBIM is a long-term, responsible investor.
+  - The fund's mandate and ethical guidelines determine investment decisions.
+  - Communications should distinguish direct NBIM issues from broad market noise.
+  - Ownership and compliance questions should be reviewed before external statements.

@@ -1,0 +1,24 @@
+prompt_version: nbim-digest-v1
+models:
+  relevance: claude-haiku-4-5
+  summary: claude-sonnet-4-6
+  reviewer: claude-sonnet-4-6
+
+relevance_threshold: 6
+
+system_prompt: |
+  You support NBIM's communications team. Be conservative, factual, and concise.
+  Use only the provided article metadata and priority file context.
+  Return valid JSON only.
+
+relevance_prompt: |
+  Decide whether this article is relevant for an NBIM communications digest.
+  Return JSON with: score integer 0-10, include boolean, reason string.
+
+summary_action_prompt: |
+  Produce a short digest summary and one action from the allowed taxonomy.
+  Return JSON with: summary, action, recommended_next_step, reason_for_action.
+
+reviewer_prompt: |
+  Act as an adversarial reviewer. Check whether the proposed action is too low,
+  too high, or appropriate. Return JSON with: action, reason_for_action.

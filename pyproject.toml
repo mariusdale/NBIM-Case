@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nbim-digest"
+version = "0.1.0"
+description = "NBIM daily news digest proof of concept"
+requires-python = ">=3.11"
+
+[tool.setuptools.packages.find]
+where = ["src"]

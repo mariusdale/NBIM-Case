@@ -1,0 +1,28 @@
+sources:
+  - name: NRK Siste nyheter
+    url: https://www.nrk.no/nyheter/siste.rss
+    enabled: true
+    source_category: Norwegian public news
+    access_level: rss_metadata_only
+    reason_disabled: ""
+
+  - name: Nettavisen Rich RSS
+    url: https://www.nettavisen.no/service/rich-rss
+    enabled: true
+    source_category: Norwegian public debate and economy
+    access_level: rss_metadata_only
+    reason_disabled: ""
+
+  - name: Finansavisen RSS
+    url: https://ws.finansavisen.no/api/articles.rss
+    enabled: true
+    source_category: Norwegian finance news
+    access_level: rss_metadata_only
+    reason_disabled: ""
+
+  - name: Example broad web scrape
+    url: ""
+    enabled: false
+    source_category: Excluded source
+    access_level: excluded
+    reason_disabled: "Excluded deliberately: the POC uses metadata-only RSS feeds, including Google News RSS search, not article scraping."

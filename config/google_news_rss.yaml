@@ -1,0 +1,13 @@
+name: Google News RSS
+enabled: true
+source_category: Google News search RSS
+access_level: rss_metadata_only
+endpoint: https://news.google.com/rss/search
+query: '(NBIM OR "Norges Bank Investment Management" OR Oljefondet OR Oljefond OR GPFG OR "Norwegian sovereign wealth fund")'
+hl: "nb-NO"
+gl: "NO"
+ceid: "NO:nb"
+time_horizon:
+  24h: when:1d
+  48h: when:2d
+  7d: when:7d

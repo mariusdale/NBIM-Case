@@ -1,0 +1,63 @@
+articles:
+  - id: nettavisen-stoltenberg-2026
+    title: Oljefondet har tapt 26 milliarder kroner på Stoltenberg-grep
+    url: https://www.nettavisen.no/okonomi/oljefondet-har-tapt-26-milliarder-kroner-pa-stoltenberg-grep/s/5-95-3026743
+    source: "Demo article: Nettavisen"
+    published_at: "2026-05-08"
+    description: Oljefondet omtales direkte i en sak om tap knyttet til politisk og forvaltningsmessig beslutning.
+    discovery_path: Curated demo article
+    suggested_action: ALERT_OWNERSHIP_AND_COMPLIANCE
+
+  - id: e24-israel-cameras-2025
+    title: Oljefond-selskap leverer kameraer til det israelske militæret
+    url: https://e24.no/internasjonal-oekonomi/i/yEqLLg/oljefond-selskap-leverer-kameraer-til-det-israelske-militaeret
+    source: "Demo article: E24"
+    published_at: "2025-08-05"
+    description: Porteføljeselskap knyttes til militær leveranse i en geopolitisk kontrovers.
+    discovery_path: Curated demo article
+    suggested_action: ALERT_OWNERSHIP_AND_COMPLIANCE
+
+  - id: e24-q1-value-fall-2026
+    title: Stort verdifall for oljefondet i første kvartal
+    url: https://e24.no/boers-og-finans/i/zOOwew/stort-verdifall-for-oljefondet-i-foerste-kvartal
+    source: "Demo article: E24"
+    published_at: "2026-04-01"
+    description: Markedsutvikling og kvartalsvis verdiendring for fondet omtales.
+    discovery_path: Curated demo article
+    suggested_action: MONITOR
+
+  - id: nrk-ethics-decisions-2026
+    title: Reagerer på Oljefondets avgjørelser
+    url: https://www.nrk.no/urix/reagerer-pa-oljefondets-avgjorelser_-_-helt-pa-trynet-1.17872021
+    source: "Demo article: NRK"
+    published_at: "2026-05-05"
+    description: Offentlig kritikk av fondets etiske avgjørelser og porteføljerelaterte vurderinger.
+    discovery_path: Curated demo article
+    suggested_action: ALERT_OWNERSHIP_AND_COMPLIANCE
+
+  - id: dn-litigation-2023
+    title: Mangeårig leder i Oljefondet saksøker Norges Bank for ugyldig oppsigelse
+    url: https://www.dn.no/jus/mangearig-leder-i-oljefondet-saksoker-norges-bank-for-ugyldig-oppsigelse/2-1-1393879
+    source: "Demo article: DN"
+    published_at: "2023-01-31"
+    description: Søksmål og ledelsesrelatert omdømmerisiko knyttet til Oljefondet og Norges Bank.
+    discovery_path: Curated demo article
+    suggested_action: ESCALATE_TO_LEADERSHIP
+
+  - id: vg-tangen-concert-2020
+    title: Tangen fløy inn norske samfunnstopper til ni millioners konsert og superkonferanse
+    url: https://www.vg.no/nyheter/innenriks/i/wPGjed/oljefond-tangen-floey-inn-norske-samfunnstopper-til-ni-millioners-konsert-og-superkonferanse?utm_content=link:wPGjed&utm_source=iosapp&utm_medium=share
+    source: "Demo article: VG"
+    published_at: "2020-04-18"
+    description: Nicolai Tangen omtales i en personlig og ledelsesrelatert omdømmesak.
+    discovery_path: Curated demo article
+    suggested_action: ESCALATE_TO_LEADERSHIP
+
+  - id: e24-musk-tangen-2024
+    title: Musk avlyser middagsavtale med Tangen
+    url: https://e24.no/naeringsliv/i/vgn2r4/musk-avlyser-middagsavtale-med-tangen?utm_source=iosapp&utm_medium=share
+    source: "Demo article: E24"
+    published_at: "2024-10-17"
+    description: Elon Musk og Nicolai Tangen omtales i en synlig offentlig sak med mulig omdømmerisiko.
+    discovery_path: Curated demo article
+    suggested_action: ESCALATE_TO_LEADERSHIP

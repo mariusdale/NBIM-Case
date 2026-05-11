@@ -1,0 +1,25 @@
+actions:
+  - code: NO_ACTION
+    severity: 0
+    label: No action
+    when: Irrelevant; dropped from final digest, kept in audit trail.
+
+  - code: MONITOR
+    severity: 1
+    label: Monitor
+    when: Relevant background; no immediate action.
+
+  - code: ALERT_COMMUNICATIONS
+    severity: 2
+    label: Alert communications
+    when: Direct NBIM mention or stakeholder-question risk; comms team reviews today.
+
+  - code: ALERT_OWNERSHIP_AND_COMPLIANCE
+    severity: 3
+    label: Alert ownership & compliance
+    when: Portfolio company controversy, ethics, sanctions, human rights, climate, weapons, governance — needs ownership/compliance loop before any external response.
+
+  - code: ESCALATE_TO_LEADERSHIP
+    severity: 4
+    label: Escalate to leadership
+    when: Direct allegations against NBIM/leadership, mandate risk, litigation, major reputational crisis.

@@ -1,0 +1,205 @@
+config:
+  matching:
+    case_sensitive: false
+    word_boundary: true
+    stem_norwegian: true
+    stem_english: false
+    normalize_unicode: NFC
+  duplicate_resolution: highest_tier_wins
+  decision:
+    pass_threshold: 100
+    review_threshold: 40
+
+tier_1_direct:
+  weight: 100
+  rule: any_match_passes
+  fund_identifiers:
+    - NBIM
+    - Norges Bank Investment Management
+    - Statens pensjonsfond utland
+    - SPU
+    - GPFG
+    - Government Pension Fund Global
+    - Norwegian sovereign wealth fund
+  fund_identifiers_stemmed:
+    - "oljefond[a-zæøå]*"
+    - "pensjonsfond[a-zæøå]+ utland"
+  key_people:
+    - Nicolai Tangen
+    - Trond Grande
+    - Carine Smith Ihenacho
+    - Malin Norberg
+    - Patrick du Plessis
+  ethics_infrastructure:
+    - Etikkrådet
+    - Council on Ethics
+    - eksklusjonslisten
+    - observasjonslisten
+    - NBIM exclusion
+
+tier_2_contextual:
+  weight: 60
+  rule: pass_if_cooccurs_with
+  cooccurrence_targets:
+    - tier_2_contextual
+    - tier_3_topical
+  fund_generic:
+    - fondet
+    - fondets
+    - fondene
+    - fondsforvalter
+  fund_activity:
+    - aktivt eierskap
+    - active ownership
+    - stemmegivning
+    - shareholder voting
+    - AGM voting
+    - generalforsamling
+    - divestment
+    - trekker seg ut
+    - selger seg ut
+    - ekskluderer
+    - exclude from portfolio
+    - screening
+    - engagement
+    - proxy voting
+  fund_governance:
+    - fondets mandat
+    - fund mandate
+    - forvaltningsmandatet
+    - etiske retningslinjer
+    - ethical guidelines
+    - ansvarlig investering
+    - responsible investment
+    - Finansdepartementet
+    - Ministry of Finance
+
+tier_3_topical:
+  weight: 20
+  rule: contributes_only
+  esg_sustainability:
+    - ESG
+    - bærekraft
+    - sustainability
+    - klimarisiko
+    - climate risk
+    - net zero
+    - netto null
+    - utslipp
+    - emissions
+    - Parisavtalen
+    - Paris Agreement
+  ethical_exclusions:
+    - menneskerettigheter
+    - human rights
+    - korrupsjon
+    - corruption
+    - atomvåpen
+    - nuclear weapons
+    - klyngeammunisjon
+    - cluster munitions
+    - tobakk
+    - tobacco
+    - kullselskaper
+    - thermal coal
+    - oljesand
+    - tar sands
+    - anti-personnel mines
+    - landminer
+  governance:
+    - governance
+    - eierstyring
+    - lederlønn
+    - executive compensation
+    - executive pay
+    - say on pay
+    - board independence
+    - styresammensetning
+  markets_macro:
+    - aksjemarkedet
+    - equity markets
+    - Oslo Børs
+    - S&P 500
+    - Nasdaq
+    - renter
+    - interest rates
+    - inflasjon
+    - inflation
+    - Federal Reserve
+    - ECB
+    - kronekurs
+    - oljepris
+    - oil price
+    - resesjon
+    - recession
+  geopolitics:
+    - sanksjoner
+    - sanctions
+    - Russland
+    - Russia
+    - Ukraina
+    - Ukraine
+    - Israel
+    - Gaza
+    - Iran
+    - Taiwan
+    - Kina
+    - China
+    - handelskrig
+    - trade war
+    - tariffs
+    - tollsatser
+  norwegian_politics:
+    - Stortinget
+    - regjeringen
+    - politisk press
+    - åpenhet
+    - transparency
+
+ambiguous:
+  norges_bank:
+    term: Norges Bank
+    require_cooccurrence_with:
+      - tier_1_direct
+      - Investment Management
+      - fondet
+      - Tangen
+      - aktivt eierskap
+    fallback: skip
+  tangen_surname:
+    term: Tangen
+    require_cooccurrence_with:
+      - Nicolai
+      - tier_1_direct
+    fallback: skip
+  central_bank_terms:
+    terms:
+      - sentralbank
+      - central bank
+      - styringsrente
+      - policy rate
+      - rentemøte
+      - rate decision
+      - Ida Wolden Bache
+    require_cooccurrence_with:
+      - tier_1_direct
+    fallback: skip
+
+exclusions:
+  promotional:
+    patterns:
+      - sponset innhold
+      - annonsørinnhold
+      - sponsored content
+      - annonse
+    action: skip
+    overrides_tier_1: true
+  paywalled_stubs:
+    min_body_length: 200
+    action: skip
+    overrides_tier_1: false
+  wire_duplicates:
+    dedupe_by:
+      - title_hash
+      - first_paragraph_hash
+    keep: highest_authority_source
