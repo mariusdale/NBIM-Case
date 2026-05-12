@@ -31,6 +31,7 @@ st.set_page_config(
 st.markdown(
     """
     <style>
+    [data-testid="stDecoration"] { display: none !important; }
     .block-container { padding-top: 1.7rem; max-width: 1120px; }
     section[data-testid="stSidebar"] { width: 14rem !important; min-width: 14rem !important; }
     section[data-testid="stSidebar"] > div { width: 14rem !important; padding: 0 0.85rem 1rem 0.85rem; }

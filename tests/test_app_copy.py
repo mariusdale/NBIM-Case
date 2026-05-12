@@ -46,3 +46,7 @@ def test_digest_feedback_controls_use_blue_interaction_states():
 
 def test_streamlit_theme_uses_nbim_blue_primary_accent():
     assert STREAMLIT_CONFIG["theme"]["primaryColor"] == "#005EB8"
+
+
+def test_streamlit_default_top_decoration_is_hidden():
+    assert '[data-testid="stDecoration"] { display: none !important; }' in APP_SOURCE
