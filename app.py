@@ -123,10 +123,35 @@ st.markdown(
       border-color: #005eb8 !important;
       box-shadow: 0 0 0 1px #005eb8 inset !important;
     }
+    div[data-testid="stSelectbox"] div[data-baseweb="select"] > div {
+      border-color: #d1d5db !important;
+      box-shadow: none !important;
+    }
+    div[data-testid="stSelectbox"] div[data-baseweb="select"]:hover > div {
+      border-color: #9aa0a6 !important;
+      box-shadow: none !important;
+    }
+    div[data-testid="stSelectbox"] div[data-baseweb="select"]:focus-within > div {
+      border-color: #005eb8 !important;
+      box-shadow: 0 0 0 1px #005eb8 inset !important;
+    }
+    div[data-testid="stSelectbox"] div[data-baseweb="select"]:focus-within {
+      border-color: #005eb8 !important;
+    }
     div[data-testid="stSelectbox"] [aria-selected="true"],
     div[data-testid="stSelectbox"] [aria-selected="true"]:hover {
       background-color: #005eb8 !important;
       color: #ffffff !important;
+    }
+    div[data-baseweb="popover"] [role="listbox"] [role="option"][aria-selected="true"],
+    div[data-baseweb="menu"] [role="option"][aria-selected="true"] {
+      background-color: #005eb8 !important;
+      color: #ffffff !important;
+    }
+    div[data-baseweb="popover"] [role="listbox"] [role="option"]:hover,
+    div[data-baseweb="menu"] [role="option"]:hover {
+      background-color: #e8f2ff !important;
+      color: #003f7d !important;
     }
     div[data-testid="stButton"] button:focus,
     div[data-testid="stButton"] button:active {

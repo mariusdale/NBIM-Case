@@ -1,8 +1,10 @@
 import ast
+import tomllib
 from pathlib import Path
 
 
 APP_SOURCE = Path("app.py").read_text()
+STREAMLIT_CONFIG = tomllib.loads(Path(".streamlit/config.toml").read_text())
 
 
 def _function_node(name: str) -> ast.FunctionDef:
@@ -33,5 +35,14 @@ def test_digest_feedback_controls_use_blue_interaction_states():
     assert 'div[data-testid="stExpander"] details summary:hover' in APP_SOURCE
     assert 'div[data-testid="stExpander"] details summary {' in APP_SOURCE
     assert 'div[data-testid="stSelectbox"] div[data-baseweb="select"]:focus-within' in APP_SOURCE
+    assert 'div[data-testid="stSelectbox"] div[data-baseweb="select"] > div' in APP_SOURCE
+    assert "border-color: #d1d5db !important;" in APP_SOURCE
+    assert 'div[data-testid="stSelectbox"] div[data-baseweb="select"]:focus-within > div' in APP_SOURCE
     assert 'div[data-testid="stTextInput"] div[data-baseweb="input"]:focus-within' in APP_SOURCE
+    assert 'div[data-baseweb="popover"] [role="listbox"] [role="option"][aria-selected="true"]' in APP_SOURCE
+    assert 'div[data-baseweb="popover"] [role="listbox"] [role="option"]:hover' in APP_SOURCE
     assert 'div[data-testid="stButton"] button:active' in APP_SOURCE
+
+
+def test_streamlit_theme_uses_nbim_blue_primary_accent():
+    assert STREAMLIT_CONFIG["theme"]["primaryColor"] == "#005EB8"
