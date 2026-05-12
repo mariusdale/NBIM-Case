@@ -32,21 +32,6 @@ Alternatively, open `.env` manually and add:
 ANTHROPIC_API_KEY=sk-ant-api03-...
 ```
 
-## What The POC Demonstrates
-
-- Compliant source selection: Norwegian RSS metadata and Google News RSS search metadata, no article scraping.
-- Source registry in `config/feeds.yaml`, including disabled-source rationale.
-- Google News RSS registry in `config/google_news_rss.yaml`, including `24h`, `48h`, and `7d` horizons.
-- Local NBIM priority file in `config/priorities.yaml`.
-- Deterministic rule filter in `config/content_filter_taxonomy.yaml` and `src/nbim_digest/rule_filter.py`.
-- Five-level action taxonomy in `src/nbim_digest/actions.py`.
-- Anthropic pipeline: Haiku 4.5 relevance, Sonnet 4.6 summary/action, Sonnet 4.6 reviewer.
-- Fast review mode skips the reviewer by default for lower latency; full adversarial review is available as an explicit option.
-- SQLite audit trail for articles, rule decisions, LLM calls, final decisions, and feedback.
-- Cached demo mode in `data/demo_cached_outputs.json`.
-
-Anthropic model defaults use the public API aliases `claude-haiku-4-5` and `claude-sonnet-4-6`. Anthropic’s docs list Haiku 4.5 and Sonnet 4.6 IDs and pricing; override them in `config/prompts.yaml` if your account requires a pinned snapshot.
-
 ## Pipeline
 
 1. Fetch metadata from enabled Norwegian RSS feeds and Google News RSS search for the selected horizon.
