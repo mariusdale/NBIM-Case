@@ -100,12 +100,43 @@ st.markdown(
       color: #ffffff !important;
     }
     div[data-testid="stExpander"] details summary {
-      color: #005eb8 !important;
+      color: #202124 !important;
       font-weight: 650;
     }
+    div[data-testid="stExpander"] details summary p {
+      color: #202124 !important;
+    }
+    div[data-testid="stExpander"] details summary:hover,
+    div[data-testid="stExpander"] details summary:hover p {
+      color: #005eb8 !important;
+    }
     div[data-testid="stExpander"] details summary svg {
+      color: #202124 !important;
+      fill: #202124 !important;
+    }
+    div[data-testid="stExpander"] details summary:hover svg {
       color: #005eb8 !important;
       fill: #005eb8 !important;
+    }
+    div[data-testid="stSelectbox"] div[data-baseweb="select"]:focus-within,
+    div[data-testid="stTextInput"] div[data-baseweb="input"]:focus-within {
+      border-color: #005eb8 !important;
+      box-shadow: 0 0 0 1px #005eb8 inset !important;
+    }
+    div[data-testid="stSelectbox"] [aria-selected="true"],
+    div[data-testid="stSelectbox"] [aria-selected="true"]:hover {
+      background-color: #005eb8 !important;
+      color: #ffffff !important;
+    }
+    div[data-testid="stButton"] button:focus,
+    div[data-testid="stButton"] button:active {
+      border-color: #005eb8 !important;
+      color: #005eb8 !important;
+      box-shadow: 0 0 0 1px #005eb8 inset !important;
+    }
+    div[data-testid="stButton"] button:hover {
+      border-color: #005eb8 !important;
+      color: #005eb8 !important;
     }
     .sidebar-brand { font-weight: 700; font-size: 0.95rem; margin: 0.25rem 0 0.65rem 0; }
     .sidebar-rule { border-top: 1px solid #e5e7eb; margin: 0.7rem 0; }
@@ -313,6 +344,7 @@ def digest_page(controls: dict) -> None:
     )
     mode = controls["mode"]
     use_cached = controls["use_cached"]
+    time_horizon = controls["time_horizon"]
     review_depth = controls["review_depth"]
     if mode == "demo":
         st.info(
@@ -364,7 +396,6 @@ def digest_page(controls: dict) -> None:
 
     result = st.session_state.get("last_result")
     if not result:
-        st.markdown("Run the demo digest to see the full pipeline without API keys.")
         return
 
     render_digest_result(result)
