@@ -91,11 +91,9 @@ Filters include source, action, date, included/dropped, and demo/live.
 
 LLM call records include model, prompt version, input hash, output JSON, parsed output, latency, token estimate, cost estimate, and error if a call failed.
 
-## Norwegian Interview Explanation
+## Production Orientation
 
-Verktøyet henter først bare metadata fra godkjente kilder: norske RSS-feeder og Google News RSS-søk. Brukeren velger selv tidshorisont: siste 24 timer, 48 timer eller 7 dager. Deretter bruker vi et deterministisk regel-filter før noe sendes til språkmodellen. Direkte treff på NBIM, Oljefondet, SPU eller nøkkelpersoner gir automatisk pass. Svakere signaler, som «fondet» eller «aktivt eierskap», må opptre sammen med andre relevante signaler. Brede temaer som geopolitikk, bærekraft eller markeder kan aldri alene løfte en sak inn i digesten; de brukes bare som kontekst og merkelapper.
-
-Etter dette vurderer en billigere modell relevans, før en sterkere modell lager sammendrag og anbefalt handling. Til slutt gjør en reviewer-modell en ekstra kontroll av handlingsnivået. Alle beslutninger lagres i SQLite slik at vi kan forklare hvorfor en artikkel ble inkludert eller droppet.
+The POC uses RSS because it is cheap, transparent, and easy to demo without licensed data. But I treated RSS as an adapter, not as the core architecture. The production design is source-agnostic: Bloomberg, Reuters, or internal NBIM feeds would map into the same article schema, then pass through the same rule filter, LLM review, action taxonomy, and audit trail. SQLite proves the audit model locally; Snowflake would become the production audit backend, using the same logical tables with Snowflake-native types and governance. Streamlit can then run inside Snowflake as the review interface, with Snowflake handling access control, secrets, data locality, and auditability.
 
 ## Tests
 
