@@ -4,24 +4,33 @@ Proof of concept for a daily NBIM communications digest. It fetches metadata-onl
 
 ## Quick Start
 
-### Create local environment
+Create a local environment, install the app, add your Anthropic API key, and run Streamlit:
+
+```bash
+# Create and activate virtual environment
 python3 -m venv .venv
 source .venv/bin/activate
 
-### Install dependencies
+# Install dependencies
 pip install -r requirements.txt
 pip install -e .
 
-### Create local environment variables file
+# Create local environment variables file
 cp .env.example .env
 
-### Add your Anthropic API key to .env
-### Example:
-### ANTHROPIC_API_KEY=sk-ant-api03-...
+# Add your Anthropic API key to .env
+# Replace sk-ant-api03-... with your actual key
+echo "ANTHROPIC_API_KEY=sk-ant-api03-..." >> .env
 
-### Run the app
+# Run the app
 streamlit run app.py
-Then edit `.env`:
+```
+
+Alternatively, open `.env` manually and add:
+
+```bash
+ANTHROPIC_API_KEY=sk-ant-api03-...
+```
 
 ## What The POC Demonstrates
 
