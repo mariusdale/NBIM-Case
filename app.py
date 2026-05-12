@@ -23,7 +23,7 @@ load_app_env(ROOT)
 ensure_data_dir()
 
 st.set_page_config(
-    page_title="NBIM Daily News Digest",
+    page_title="NBIM News Digest",
     page_icon="NBIM",
     layout="wide",
 )
@@ -306,14 +306,13 @@ def render_digest_result(result, *, feedback_enabled: bool = True) -> None:
 
 
 def digest_page(controls: dict) -> None:
-    st.title("NBIM Daily News Digest")
+    st.title("NBIM News Digest")
     st.markdown(
-        "<div class='app-kicker'>Metadata-only monitoring, deterministic filtering, LLM review, and an auditable action trail.</div>",
+        "<div class='app-kicker'>News monitoring, deterministic filtering, LLM review, and an auditable action trail</div>",
         unsafe_allow_html=True,
     )
     mode = controls["mode"]
     use_cached = controls["use_cached"]
-    time_horizon = controls["time_horizon"]
     review_depth = controls["review_depth"]
     if mode == "demo":
         st.info(
@@ -323,8 +322,7 @@ def digest_page(controls: dict) -> None:
             st.caption("Using cached demo outputs because cached mode is selected.")
     else:
         st.caption(
-            f"Live monitoring · Google News {time_horizon} · "
-            f"{'Fast review' if review_depth == 'fast' else 'Full adversarial review'}"
+            f"Live monitoring · {'Fast review' if review_depth == 'fast' else 'Full adversarial review'}"
         )
 
     if controls["run_clicked"]:
